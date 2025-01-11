@@ -1,0 +1,58 @@
+import { useEffect, useState } from "react";
+import PostCard from "./PostCard";
+import { axios_get } from "../../../service/api.service";
+// import { getAllPosts, getAuthor, getAuthorPosts } from "../../../lib/content";
+
+interface Post {
+  id: string;
+  title: string;
+  slug: string;
+  teaser: string;
+  cover_img: string;
+  category: string;
+  createdAt: string;
+  UserId: string;
+}
+
+interface Author {
+  id: string;
+  title: string;
+  avatar: string;
+  bio: string;
+}
+
+export function PostList({ authorSlug }: { authorSlug?: string }) {
+  const [posts, setPosts] = useState<Post[] | null>(null);
+  const author = "";
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        // Call the API to fetch posts (you can adjust the URL if needed)
+        const response = await axios_get("blog/post/all", { authorSlug });
+        const fetchedPosts = Array.isArray(response.data.posts) ? response.data.posts : [];
+        setPosts(fetchedPosts);
+      } catch (error) {
+        console.error("Error fetching posts:", error);
+      }
+    };
+
+    fetchPosts(); // Call the fetchPosts function when the component mounts
+  }, [authorSlug]); // Re-fetch posts if authorSlug changes\
+
+  return (
+    <>
+      {author && (
+        <h1 className="my-4 text-4xl font-bold leading-tight tracking-tight text-zinc-700 dark:text-zinc-300">Posts by {author.title}</h1>
+      )}
+      {!posts && "You must add at least one Post to your Bucket"}
+      {posts &&
+        posts.map((post: any) => {
+          return (
+            <div key={post.id}>
+              <PostCard post={post} />
+            </div>
+          );
+        })}
+    </>
+  );
+}
