@@ -19,9 +19,10 @@ import { Loader } from "./Loader";
 export function SinglePost() {
   const { slug } = useParams();
   const [post, setPost] = useState<Post | null>(null);
-  const [comments, setComments] = useState<any[]>([]); // Changed to local state
+  const [comments, setComments] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const { isLoading, data } = useQuery({
+  const { data } = useQuery({
     queryKey: ["Comment"],
     queryFn: () => axios_post("/blog/comment/all", { slug: slug }),
     onSuccess: (data) => {
@@ -64,6 +65,7 @@ export function SinglePost() {
         const fetchedPost = await getPost(slug);
         if (fetchedPost) {
           setPost(fetchedPost);
+          setLoading(false);
         } else {
           console.log("No post found or empty response");
         }
@@ -83,7 +85,7 @@ export function SinglePost() {
 
   console.log(data);
 
-  if (isLoading) {
+  if (loading) {
     return (
       <div className="h-[100vh] w-full flex justify-center items-center">
         <Loader />
