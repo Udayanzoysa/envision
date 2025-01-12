@@ -1,5 +1,4 @@
 import { useRoutes } from "react-router-dom";
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import _ from "lodash";
 import RootLayout from "../layout/rootLayout";
 import HomePage from "../components/pages/home/homePage";

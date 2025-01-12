@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import * as Yup from "yup";
 import FormInput from "../../common/form-components/FormInput";
 import { useFormik } from "formik";
@@ -16,7 +16,7 @@ const BlogViewPage = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const METHOD_URL = BLOG.VIEW + id;
-  const { data, isLoading } = useQuery({
+  const { data } = useQuery({
     queryKey: [BLOGS.LIST],
     queryFn: () => axios_get(METHOD_URL),
   });

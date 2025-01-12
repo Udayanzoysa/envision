@@ -6,7 +6,7 @@ export default function AuthorAttribution({ post }: { post: Post }): JSX.Element
     <div className="flex space-x-1">
       <span>by</span>
       <a
-        href={`/author/${post.metadata.author?.slug}`}
+        href={"/"}
         className="font-medium text-green-600 dark:text-green-200"
       >
         {post.metadata.author?.title}

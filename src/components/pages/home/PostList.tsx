@@ -35,7 +35,7 @@ export function PostList({ authorSlug }: { authorSlug?: string }) {
   return (
     <>
       {author && (
-        <h1 className="my-4 text-4xl font-bold leading-tight tracking-tight text-zinc-700 dark:text-zinc-300">Posts by {author.title}</h1>
+        <h1 className="my-4 text-4xl font-bold leading-tight tracking-tight text-zinc-700 dark:text-zinc-300">Posts by {author}</h1>
       )}
       {posts && posts.length === 0 && (
         <div className="w-full h-[80vh] my-4 text-xl text-center text-zinc-500 dark:text-zinc-300 flex justify-center items-center">

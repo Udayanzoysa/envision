@@ -3,7 +3,6 @@ import FormInput from "../../../common/form-components/FormInput";
 import * as Yup from "yup";
 import { useMutation } from "react-query";
 import { axios_post } from "../../../../service/api.service";
-import { useNavigate } from "react-router-dom";
 import { getErrorMessage } from "../../../../utils";
 import { toast, ToastContainer } from "react-toastify";
 

@@ -13,7 +13,7 @@ import { toast } from "react-toastify";
 const BlogListPage = () => {
   const navigate = useNavigate();
   const { getValue } = useContext(StoreContext);
-  const { data, isLoading } = useQuery({
+  const { data } = useQuery({
     queryKey: [BLOGS.LIST],
     queryFn: () => axios_get("/blog/post/list"),
   });
@@ -33,7 +33,7 @@ const BlogListPage = () => {
   ];
 
   const tableData = get(data, "data");
-  const [colDefs, setColDefs]: any = useState([
+  const [colDefs]: any = useState([
     { field: "title", flex: 1 },
     { field: "teaser", flex: 1 },
     {
@@ -55,7 +55,7 @@ const BlogListPage = () => {
       field: "status",
       flex: 1,
       editable: true,
-      cellEditorSelector: (params: any) => {
+      cellEditorSelector: () => {
         // Provide a select input for status editing
         return {
           component: "agSelectCellEditor",
@@ -127,6 +127,3 @@ const BlogListPage = () => {
 };
 
 export default BlogListPage;
-function axios_delete(arg0: string) {
-  throw new Error("Function not implemented.");
-}

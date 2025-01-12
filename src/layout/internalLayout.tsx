@@ -37,6 +37,9 @@ const InternalLayout = () => {
         }),
   });
 
+  console.log(data);
+  console.log(error);
+
   if (isLoading) {
     return (
       <div className="h-[100vh] w-full flex justify-center items-center">
@@ -48,7 +51,7 @@ const InternalLayout = () => {
   return (
     <div className="flex h-screen">
       {/* Sidebar - Fixed */}
-        <Sidebar />
+      <Sidebar />
       {/* Main Content - Scrollable */}
       <div className="flex-1 overflow-y-auto">
         <NavBar />

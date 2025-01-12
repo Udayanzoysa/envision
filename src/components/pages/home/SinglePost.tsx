@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useEffect, useState } from "react";
 import ArrowLeft from "../../common/logo/ArrowLeft";
 import { getPost } from "../../../lib/content";
 import Tag from "./Tag";
@@ -15,6 +13,7 @@ import {  axios_post } from "../../../service/api.service";
 import { getErrorMessage } from "../../../utils";
 import { toast } from "react-toastify";
 import { get } from "lodash";
+import { useEffect, useState } from "react";
 
 export function SinglePost() {
   const { slug } = useParams();

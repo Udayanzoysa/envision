@@ -1,4 +1,3 @@
-import React from "react";
 import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
 
 const ActionButton = ({ data, actions }: any) => {
