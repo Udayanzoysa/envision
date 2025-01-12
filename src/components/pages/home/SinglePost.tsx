@@ -9,18 +9,19 @@ import { Post } from "../../../lib/type";
 import FormTextArea from "../../common/form-components/FormTextArea";
 import { useFormik } from "formik";
 import { useMutation, useQuery } from "react-query";
-import {  axios_post } from "../../../service/api.service";
+import { axios_post } from "../../../service/api.service";
 import { getErrorMessage } from "../../../utils";
 import { toast } from "react-toastify";
 import { get } from "lodash";
 import { useEffect, useState } from "react";
+import { Loader } from "./Loader";
 
 export function SinglePost() {
   const { slug } = useParams();
   const [post, setPost] = useState<Post | null>(null);
   const [comments, setComments] = useState<any[]>([]); // Changed to local state
 
-  useQuery({
+  const { isLoading, data } = useQuery({
     queryKey: ["Comment"],
     queryFn: () => axios_post("/blog/comment/all", { slug: slug }),
     onSuccess: (data) => {
@@ -79,6 +80,16 @@ export function SinglePost() {
       mutation.mutate(values);
     },
   });
+
+  console.log(data);
+
+  if (isLoading) {
+    return (
+      <div className="h-[100vh] w-full flex justify-center items-center">
+        <Loader />
+      </div>
+    );
+  }
 
   return (
     <>
