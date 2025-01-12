@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from "react";
 import ArrowLeft from "../../common/logo/ArrowLeft";
 import { getPost } from "../../../lib/content";
