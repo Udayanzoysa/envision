@@ -21,7 +21,7 @@ export function SinglePost() {
   const [post, setPost] = useState<Post | null>(null);
   const [comments, setComments] = useState<any[]>([]); // Changed to local state
 
-  const { data, isLoading } = useQuery({
+  useQuery({
     queryKey: ["Comment"],
     queryFn: () => axios_post("/blog/comment/all", { slug: slug }),
     onSuccess: (data) => {

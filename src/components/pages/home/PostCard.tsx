@@ -1,4 +1,3 @@
-import React from "react";
 import ArrowRight from "../../common/logo/ArrowRight.tsx";
 import Tag from "./Tag";
 import { Post } from "../../../lib/type";

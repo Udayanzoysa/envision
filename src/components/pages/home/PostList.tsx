@@ -13,13 +13,6 @@ interface Post {
   UserId: string;
 }
 
-interface Author {
-  id: string;
-  title: string;
-  avatar: string;
-  bio: string;
-}
-
 export function PostList({ authorSlug }: { authorSlug?: string }) {
   const [posts, setPosts] = useState<Post[] | null>(null);
   const author = "";

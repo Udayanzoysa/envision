@@ -1,7 +1,7 @@
-import { ArrowRightIcon, ArrowLeftIcon, HomeIcon, CogIcon, UserIcon, EllipsisVerticalIcon } from "@heroicons/react/24/outline";
+import { ArrowRightIcon, ArrowLeftIcon, HomeIcon, UserIcon, EllipsisVerticalIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import SidebarItem from "./components/SidebarItem";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 // This sidebar component is for both mobile and desktop
 function Sidebar({ children, expanded, setExpanded }: any) {
@@ -101,6 +101,7 @@ export default function MakeSidebar() {
         <SidebarItem
           key={index}
           expanded={expanded}
+          link
           {...item}
         />
       ))}
