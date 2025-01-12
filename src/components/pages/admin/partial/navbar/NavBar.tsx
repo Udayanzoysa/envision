@@ -1,5 +1,5 @@
 import Cookies from "js-cookie";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const NavBar = () => {
   const navigate = useNavigate();
@@ -8,6 +8,10 @@ const NavBar = () => {
     Cookies.remove("refreshToken");
     navigate("/login");
   };
+
+  const handleNavigate = (path: any) => {
+    navigate(path);
+  };
   return (
     <header className="bg-gray-800 text-white p-4">
       <div className="flex items-center justify-between">
@@ -15,6 +19,12 @@ const NavBar = () => {
         <nav>
           <ul className="flex space-x-4">
             <li>
+              <button
+                className="mx-4"
+                onClick={() => handleNavigate("/")}
+              >
+                View Site
+              </button>{" "}
               <button
                 className="hover:text-gray-400"
                 onClick={logout}
