@@ -1,4 +1,4 @@
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 interface AxiosErrorResponse {
   data?: {
     errors?: Record<string, string[]> | string[];
