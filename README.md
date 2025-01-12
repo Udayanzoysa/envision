@@ -62,3 +62,50 @@ Make sure the backend server is running at `http://localhost:5000`
 ## Need Help?
 Contact Me `https://github.com/Udayanzoysa`
 Gmail `unzoysa.un@gmail.com `
+
+
+# Envision Blog - New Features Update! 🎉
+
+## Latest Features Added
+
+### 1. Guest Comments
+- Visitors can now comment on blog posts without logging in
+- Enhanced community engagement
+
+### 2. Draft & Publishing System
+![Blog List Status Feature](https://raw.githubusercontent.com/your-repo/path-to-image.jpg)
+
+New status management features:
+- Blogs are saved as drafts by default
+- Double-click the status column to toggle between:
+  - `Draft` ⚪
+  - `Published` 🟢
+- Quick and intuitive status changes directly from the blog list
+
+### Blog List Features
+The blog list view now includes:
+- Title
+- Teaser text
+- Tags
+- Status (Draft/Published)
+- Last Updated timestamp
+- Action buttons (Edit/Delete)
+
+## How to Use
+
+1. **Creating a New Blog**
+   - Click "New Article"
+   - Write your content
+   - Blog saves as draft automatically
+
+2. **Publishing a Blog**
+   - Navigate to Article Lists
+   - Find your blog post
+   - Double-click the status column
+   - Select "Published"
+
+3. **Guest Comments**
+   - Available on all published posts
+
+Cheers! 🎊 Happy blogging
+Developer Udaya
