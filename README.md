@@ -1,50 +1,64 @@
-# React + TypeScript + Vite
+# Frontend React Project Setup Envision Blogs site 
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a React frontend project that connects to our Node.js backend API.
 
-Currently, two official plugins are available:
+## Backend API Repository
+Backend repository: [https://github.com/Udayanzoysa/envision-back.git](https://github.com/Udayanzoysa/envision-back.git)
+Live Demo URL: [https://envision-olive.vercel.app/]
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Getting Started
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+1. **Clone the Frontend Repository**
+```bash
+git clone https://github.com/Udayanzoysa/envision.git
+cd envision
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+2. **Install Dependencies**
+```bash
+npm install
 ```
+
+3. **Environment Setup**
+Create a `.env` file in the root directory:
+```env
+VITE_API_URL = 'http://localhost:5000/api/' {user_backend_server}
+```
+
+4. **Start Development Server**
+```bash
+npm run dev
+```
+
+The application will open at [http://localhost:5173](http://localhost:5173)
+
+## Available Scripts
+
+- `npm start` - Runs development server
+- `npm test` - Runs test suite
+- `npm run build` - Builds for production
+- `npm run eject` - Ejects from Create React App
+
+## Project Structure
+```
+frontend/
+├── public/
+├── src/
+│   ├── components/
+│   ├── pages/
+│   ├── services/
+│   ├── utils/
+│   ├── App.js
+│   └── index.js
+├── .env
+└── package.json
+```
+
+## Connect to Backend
+
+Make sure the backend server is running at `http://localhost:5000`
+(See backend repository for setup instructions)
+
+## Need Help?
+Contact Me `https://github.com/Udayanzoysa`
+Gmail `unzoysa.un@gmail.com `
