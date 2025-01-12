@@ -35,6 +35,8 @@ const NewArticel = () => {
     validationSchema: Yup.object({
       title: Yup.string().required("Title is required"),
       slug: Yup.string().required("Slug is required"),
+      category: Yup.string().required("Slug is required"),
+      tags: Yup.string().required("Slug is required"),
       cover_img: Yup.string().required("Image is required"),
       content: Yup.string().required("Content is required"),
       teaser: Yup.string().required("Teaser is required"),

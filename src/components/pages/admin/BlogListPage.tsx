@@ -18,8 +18,6 @@ const BlogListPage = () => {
     queryFn: () => axios_get("/blog/post/list"),
   });
 
-  console.log(getValue("user"), "user");
-
   const colActions = [
     {
       label: "Edit",
