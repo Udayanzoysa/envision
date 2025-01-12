@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import PostCard from "./PostCard";
 import { axios_get } from "../../../service/api.service";
-// import { getAllPosts, getAuthor, getAuthorPosts } from "../../../lib/content";
 
 interface Post {
   id: string;
@@ -24,6 +23,7 @@ interface Author {
 export function PostList({ authorSlug }: { authorSlug?: string }) {
   const [posts, setPosts] = useState<Post[] | null>(null);
   const author = "";
+
   useEffect(() => {
     const fetchPosts = async () => {
       try {
@@ -37,15 +37,20 @@ export function PostList({ authorSlug }: { authorSlug?: string }) {
     };
 
     fetchPosts(); // Call the fetchPosts function when the component mounts
-  }, [authorSlug]); // Re-fetch posts if authorSlug changes\
+  }, [authorSlug]); // Re-fetch posts if authorSlug changes
 
   return (
     <>
       {author && (
         <h1 className="my-4 text-4xl font-bold leading-tight tracking-tight text-zinc-700 dark:text-zinc-300">Posts by {author.title}</h1>
       )}
-      {!posts && "You must add at least one Post to your Bucket"}
+      {posts && posts.length === 0 && (
+        <div className="w-full h-[80vh] my-4 text-xl text-center text-zinc-500 dark:text-zinc-300 flex justify-center items-center">
+          No posts available.
+        </div>
+      )}
       {posts &&
+        posts.length > 0 &&
         posts.map((post: any) => {
           return (
             <div key={post.id}>

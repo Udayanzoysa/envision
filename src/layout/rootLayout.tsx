@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 import HomeNavBar from "../components/navbar/homeNavBar";
 import HomeFooter from "../components/footer/homeFooter";
+import { ToastContainer } from "react-toastify";
 
 const RootLayout = () => {
   return (
@@ -10,6 +11,7 @@ const RootLayout = () => {
         <Outlet />
         <HomeFooter />
       </div>
+      <ToastContainer />
     </>
   );
 };

@@ -7,10 +7,55 @@ import AuthorAttribution from "./AuthorAttribution";
 import DOMPurify from "isomorphic-dompurify";
 import { Link, useParams } from "react-router-dom";
 import { Post } from "../../../lib/type";
+import FormTextArea from "../../common/form-components/FormTextArea";
+import { useFormik } from "formik";
+import { useMutation, useQuery } from "react-query";
+import { axios_get, axios_post } from "../../../service/api.service";
+import { getErrorMessage } from "../../../utils";
+import { toast } from "react-toastify";
+import { get } from "lodash";
 
 export function SinglePost() {
   const { slug } = useParams();
   const [post, setPost] = useState<Post | null>(null);
+  const [comments, setComments] = useState<any[]>([]); // Changed to local state
+
+  const { data, isLoading } = useQuery({
+    queryKey: ["Comment"],
+    queryFn: () => axios_post("/blog/comment/all", { slug: slug }),
+    onSuccess: (data) => {
+      const commentsData = Array.isArray(data?.data?.comments) ? data.data.comments : [];
+      setComments(commentsData); // Set comments data on initial load
+    },
+  });
+
+  const mutation = useMutation(
+    (data) => {
+      return axios_post("blog/comment/add", data);
+    },
+    {
+      onSuccess: (data: any) => {
+        toast.success("Comment added !");
+        const comment = get(data, "data.comment");
+        setComments((prevComments) => [
+          ...prevComments,
+          {
+            id: comment.id,
+            content: comment.content,
+            author: {
+              name: "You",
+            },
+            createdAt: new Date().toISOString(),
+          },
+        ]);
+        formik.resetForm();
+      },
+      onError: (error: any) => {
+        const message = getErrorMessage(error);
+        console.log(message || "An error occurred");
+      },
+    }
+  );
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -26,6 +71,15 @@ export function SinglePost() {
 
     fetchPost();
   }, [slug]);
+
+  const formik = useFormik({
+    initialValues: { slug: "", comment: "" },
+    onSubmit: (values: any) => {
+      values.slug = slug;
+      mutation.mutate(values);
+    },
+  });
+
   return (
     <>
       {post && post.metadata.hero?.imgix_url && (
@@ -71,6 +125,46 @@ export function SinglePost() {
                     __html: DOMPurify.sanitize(post.metadata.content) ?? "",
                   }}
                 ></div>
+
+                {/* Comments Section */}
+                <div className="mt-8">
+                  <h3 className="text-xl font-bold text-zinc-700 dark:text-zinc-300">Comments</h3>
+                  {comments.length === 0 && <p className="text-zinc-500 dark:text-zinc-400">No comments yet. Be the first to comment!</p>}
+                  <ul className="mt-4 space-y-4">
+                    {comments.map((comment) => (
+                      <li
+                        key={comment.id}
+                        className="border-b border-zinc-300 pb-4 dark:border-zinc-700"
+                      >
+                        <p className="text-zinc-700 dark:text-zinc-300">{comment.content}</p>
+                        <div className="mt-2 text-sm text-zinc-500 dark:text-zinc-400">
+                          By {comment.author.name} on {new Date(comment.createdAt).toLocaleDateString()}
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Add Comment Section */}
+                <div className="mt-8">
+                  <h3 className="text-xl font-bold text-zinc-700 dark:text-zinc-300">Add a Comment</h3>
+                  <FormTextArea
+                    label=""
+                    className="mt-4 w-full rounded-md border border-zinc-300 p-2 text-zinc-700 shadow-sm dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300"
+                    name="comment"
+                    formik={formik}
+                    placeholder="Write your comment here..."
+                    rows={4}
+                  />
+                  <button
+                    onClick={() => {
+                      formik.handleSubmit();
+                    }}
+                    className="mt-4 rounded bg-blue-500 px-4 py-2 text-white shadow-md hover:bg-blue-600"
+                  >
+                    Submit
+                  </button>
+                </div>
               </>
             )}
           </div>

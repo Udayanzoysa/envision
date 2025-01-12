@@ -1,19 +1,24 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { StoreContext } from "../../../provider/contectProvider";
 import ActionButton from "../../common/table-action/ActionButton";
 import StausBadge from "../../common/table-action/StausBadge";
 import { AgGridReact } from "ag-grid-react";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
-import { axios_get } from "../../../service/api.service";
+import { axios_get, axios_put, axios_del } from "../../../service/api.service";
 import { BLOGS } from "../../../const/tags.const";
 import { get } from "lodash";
+import { toast } from "react-toastify";
 
 const BlogListPage = () => {
   const navigate = useNavigate();
+  const { getValue } = useContext(StoreContext);
   const { data, isLoading } = useQuery({
     queryKey: [BLOGS.LIST],
     queryFn: () => axios_get("/blog/post/list"),
   });
+
+  console.log(getValue("user"), "user");
 
   const colActions = [
     {
@@ -22,13 +27,12 @@ const BlogListPage = () => {
     },
     {
       label: "Delete",
-      onClick: (data: any) => navigate(`/blog/delete/${data.id}`),
+      onClick: (data: any) => handleDelete(data),
       colorScheme: "red",
     },
   ];
 
   const tableData = get(data, "data");
-  console.log(tableData);
   const [colDefs, setColDefs]: any = useState([
     { field: "title", flex: 1 },
     { field: "teaser", flex: 1 },
@@ -50,9 +54,19 @@ const BlogListPage = () => {
     {
       field: "status",
       flex: 1,
-      cellRenderer: (params: any) => StausBadge(params.value),
+      editable: true,
+      cellEditorSelector: (params: any) => {
+        // Provide a select input for status editing
+        return {
+          component: "agSelectCellEditor",
+          params: {
+            values: ["draft", "published", "archived"], // List of status values
+          },
+        };
+      },
+      cellRenderer: (params: any) => StausBadge(params.value), // Keep the badge for display
     },
-    { field: "createdAt", flex: 1 },
+    { field: "updatedAt", flex: 1 },
     {
       headerName: "Actions",
       cellRenderer: ActionButton,
@@ -62,6 +76,37 @@ const BlogListPage = () => {
       flex: 1,
     },
   ]);
+
+  const handleCellValueChanged = async (event: any) => {
+    const { data, colDef, newValue, api, oldValue } = event;
+
+    if (colDef.field === "status" && newValue !== oldValue) {
+      console.log("Updating status to:", newValue);
+
+      try {
+        await axios_put(`/blog/post/${data.id}`, { status: newValue });
+        data.status = newValue;
+        api.refreshCells({ rowNodes: [event.node], force: true });
+        toast.success(`Status updated for blog post ID: ${data.title}`);
+      } catch (error) {
+        console.error("Error updating status", error);
+        toast.error("Error updating status Try again !");
+      }
+    }
+  };
+
+  const handleDelete = async (data: any) => {
+    axios_del(`/blog/post/${data.id}`)
+      .then((res) => {
+        console.log(res);
+        toast.success("Post deleted successfully!");
+        navigate("/blog/list");
+      })
+      .catch((error) => {
+        toast.error("Error deleting the post!");
+        console.error("Error deleting post:", error.message);
+      });
+  };
 
   return (
     <>
@@ -74,6 +119,7 @@ const BlogListPage = () => {
           pagination={true}
           rowData={tableData}
           columnDefs={colDefs}
+          onCellValueChanged={handleCellValueChanged} // Listen to cell value changes
         />
       </div>
     </>
@@ -81,3 +127,6 @@ const BlogListPage = () => {
 };
 
 export default BlogListPage;
+function axios_delete(arg0: string) {
+  throw new Error("Function not implemented.");
+}

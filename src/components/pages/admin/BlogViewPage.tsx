@@ -38,7 +38,9 @@ const BlogViewPage = () => {
   );
 
   const formik = useFormik({
-    initialValues: {},
+    initialValues: {
+      status: "",
+    },
     validationSchema: Yup.object({
       title: Yup.string().required("Title is required"),
       slug: Yup.string().required("Slug is required"),

@@ -1,33 +1,26 @@
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
+
 const NavBar = () => {
+  const navigate = useNavigate();
+  const logout = () => {
+    Cookies.remove("accessToken");
+    Cookies.remove("refreshToken");
+    navigate("/login");
+  };
   return (
     <header className="bg-gray-800 text-white p-4">
       <div className="flex items-center justify-between">
-        <div className="text-xl">MyApp</div>
+        <div className="text-xl">Welcome envision blog editor</div>
         <nav>
           <ul className="flex space-x-4">
             <li>
-              <a
-                href="/"
+              <button
                 className="hover:text-gray-400"
+                onClick={logout}
               >
-                Home
-              </a>
-            </li>
-            <li>
-              <a
-                href="/about"
-                className="hover:text-gray-400"
-              >
-                About
-              </a>
-            </li>
-            <li>
-              <a
-                href="/contact"
-                className="hover:text-gray-400"
-              >
-                Contact
-              </a>
+                Logout
+              </button>
             </li>
           </ul>
         </nav>

@@ -73,6 +73,15 @@ const LoginForm: React.FC<any> = ({ setIsLoginPage }) => {
         >
           Login
         </button>
+        <div className="flex flex-row gap-4 mt-4">
+          <p>Need an account?</p>
+          <a
+            className=" text-blue-400 no-underline hover:underline hover:text-blue-500 cursor-pointer"
+            onClick={() => setIsLoginPage(false)}
+          >
+            Sign up
+          </a>
+        </div>
         <ToastContainer />
       </div>
     </div>
