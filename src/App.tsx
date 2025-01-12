@@ -7,14 +7,6 @@ import { AllCommunityModule, ModuleRegistry } from "ag-grid-community";
 const queryClient = new QueryClient();
 ModuleRegistry.registerModules([AllCommunityModule]);
 
-const breakpoints = {
-  sm: "640px",
-  md: "768px",
-  lg: "1024px",
-  xl: "1280px",
-  "2xl": "1536px",
-};
-
 export const App = () => {
   return (
     <ContextProvider>

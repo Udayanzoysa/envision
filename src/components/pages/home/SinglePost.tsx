@@ -10,7 +10,7 @@ import { Post } from "../../../lib/type";
 import FormTextArea from "../../common/form-components/FormTextArea";
 import { useFormik } from "formik";
 import { useMutation, useQuery } from "react-query";
-import { axios_get, axios_post } from "../../../service/api.service";
+import {  axios_post } from "../../../service/api.service";
 import { getErrorMessage } from "../../../utils";
 import { toast } from "react-toastify";
 import { get } from "lodash";
