@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import PostCard from "./PostCard";
 import { axios_get } from "../../../service/api.service";
+import { Loader } from "./Loader";
 
 interface Post {
   id: string;
@@ -15,6 +16,7 @@ interface Post {
 
 export function PostList({ authorSlug }: { authorSlug?: string }) {
   const [posts, setPosts] = useState<Post[] | null>(null);
+  const [loading, setLoading] = useState(true);
   const author = "";
 
   useEffect(() => {
@@ -24,6 +26,7 @@ export function PostList({ authorSlug }: { authorSlug?: string }) {
         const response = await axios_get("blog/post/all", { authorSlug });
         const fetchedPosts = Array.isArray(response.data.posts) ? response.data.posts : [];
         setPosts(fetchedPosts);
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching posts:", error);
       }
@@ -31,6 +34,14 @@ export function PostList({ authorSlug }: { authorSlug?: string }) {
 
     fetchPosts(); // Call the fetchPosts function when the component mounts
   }, [authorSlug]); // Re-fetch posts if authorSlug changes
+
+  if (loading) {
+    return (
+      <div className="h-[100vh] w-full flex justify-center items-center">
+        <Loader />
+      </div>
+    );
+  }
 
   return (
     <>
