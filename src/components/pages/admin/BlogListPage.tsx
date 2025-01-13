@@ -1,5 +1,4 @@
 import { useState, useContext } from "react";
-import { StoreContext } from "../../../provider/contectProvider";
 import ActionButton from "../../common/table-action/ActionButton";
 import StausBadge from "../../common/table-action/StausBadge";
 import { AgGridReact } from "ag-grid-react";
@@ -12,7 +11,6 @@ import { toast } from "react-toastify";
 
 const BlogListPage = () => {
   const navigate = useNavigate();
-  const { getValue } = useContext(StoreContext);
   const { data } = useQuery({
     queryKey: [BLOGS.LIST],
     queryFn: () => axios_get("/blog/post/list"),
