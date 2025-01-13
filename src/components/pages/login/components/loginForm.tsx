@@ -2,6 +2,7 @@ import React from "react";
 import FormInput from "../../../common/form-components/FormInput";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { get } from "lodash";
 import { useMutation } from "react-query";
 import { axios_post } from "../../../../service/api.service";
 import { ToastContainer, toast } from "react-toastify";
@@ -16,7 +17,9 @@ const LoginForm: React.FC<any> = ({ setIsLoginPage }) => {
       return axios_post("auth/login", data);
     },
     {
-      onSuccess: () => {
+      onSuccess: (data: any) => {
+        const accessToken = get(data, "data.token", {});
+        localStorage.setItem("accessToken", accessToken);
         navigate("/blog");
       },
       onError: (error: any) => {
