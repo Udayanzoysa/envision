@@ -12,14 +12,20 @@ const apiClient = axios.create({
 
 apiClient.interceptors.request.use(
   (config) => {
-    const token = Cookies.get("accessToken");
-    const accessToken = token || localStorage.getItem("accessToken");
+    const tokenFromCookies = Cookies.get("accessToken");
+    const tokenFromLocalStorage = localStorage.getItem("accessToken");
+    const accessToken = tokenFromCookies || tokenFromLocalStorage;
+
     if (accessToken) {
       config.headers.Authorization = `Bearer ${accessToken}`;
+    } else {
+      console.warn("Access token not found in cookies or localStorage.");
     }
+
     return config;
   },
   (error) => {
+    console.error("Error in request interceptor:", error);
     return Promise.reject(error);
   }
 );
